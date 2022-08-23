@@ -1,0 +1,37 @@
+import students from '../models/students.js'
+import events from '../models/events.js'
+
+export const createEvent = async (req, res) => {
+  try {
+    if (req.student.lectures.length === 0) {
+      return res.status(400).send({ success: false, message: '沒有講座' })
+    }
+    let result = await students.findById(req.student._id, 'lectures').populate('lectures.lecture')
+    const canCheckout = result.lectures.every(item => item.lecture.post)
+    if (!canCheckout) {
+      return res.status(400).send({ success: false, message: '包含下架講座' })
+    }
+    result = await events.create({ student: req.student._id, events: req.student.lectures })
+    await req.student.save()
+    res.status(200).send({ success: true, message: '', result: result._id })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
+export const getMyEvents = async (req, res) => {
+  // try {
+  //   const result = await
+  // } catch (error) {
+
+  // }
+}
+export const getAllEvents = async (req, res) => {
+  try {
+    // .populate('student','name')
+    // 自動抓 student 欄位對應的 ref 資料 ， 只取 name 欄位
+    const result = await events.find().populate('events.lecture').populate('student', 'name')
+    res.status(200).send({ success: true, message: '', result })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
