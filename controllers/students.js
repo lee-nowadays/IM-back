@@ -87,7 +87,31 @@ export const getAllStudents = async (req, res) => {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
   }
 }
-export const getStudent = async (req, res) => {
+export const getStudent = (req, res) => {
+  try {
+    res.status(200).send({
+      success: true,
+      message: '',
+      result: {
+        studentId: req.student.studentId,
+        email: req.student.email,
+        name: req.student.name,
+        class: req.student.class,
+        residenceAddress: req.student.residenceAddress,
+        currentAddress: req.student.currentAddress,
+        personalId: req.student.personalId,
+        phone: req.student.phone,
+        lectures: req.student.lectures,
+        password: req.student.password,
+        role: req.student.role
+      }
+    })
+  } catch (error) {
+    res.status(500).send({ success: false, message: '伺服器錯誤' })
+  }
+}
+
+export const getStudentProfile = async (req, res) => {
   try {
     const student = await students.findById(req.params.id)
     res.status(200).send({ success: true, message: '', student })
