@@ -103,6 +103,7 @@ export const getStudent = (req, res) => {
         phone: req.student.phone,
         lectures: req.student.lectures,
         password: req.student.password,
+        _id: req.student._id,
         role: req.student.role
       }
     })
