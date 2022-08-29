@@ -10,6 +10,7 @@ import eventsRouter from './routes/events.js'
 import calendarsRouter from './routes/calendars.js'
 import teachersRouter from './routes/teachers.js'
 import filesRouter from './routes/files.js'
+import contactsRouter from './routes/contacts.js'
 
 mongoose.connect(process.env.DB_URL)
 
@@ -40,6 +41,7 @@ app.use('/events', eventsRouter)
 app.use('/calendars', calendarsRouter)
 app.use('/teachers', teachersRouter)
 app.use('/files', filesRouter)
+app.use('/contacts', contactsRouter)
 
 app.all('*', (req, res) => {
   res.status(404).send({ success: false, message: '找不到' })
