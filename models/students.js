@@ -11,8 +11,7 @@ const schema = new mongoose.Schema({
   },
   password: {
     type: String,
-    default: '',
-    minlength: [4, '密碼不得小於四個字']
+    default: ''
   },
   name: {
     type: String,
