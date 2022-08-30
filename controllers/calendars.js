@@ -30,7 +30,7 @@ export const getCalendar = async (req, res) => {
 
 export const getAllCalendars = async (req, res) => {
   try {
-    const calendar = await calendars.find().sort({ date: -1 })
+    const calendar = await calendars.find().sort({ startDate: 1 })
     res.status(200).send({ success: true, message: '', calendar })
   } catch (error) {
     res.status(500).send({ success: false, message: '伺服器錯誤' })
