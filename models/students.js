@@ -11,7 +11,7 @@ const schema = new mongoose.Schema({
   },
   password: {
     type: String,
-    default: ''
+    default: '00000000'
   },
   name: {
     type: String,
